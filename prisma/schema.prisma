@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  foodEntries FoodEntry[]
+  workouts    Workout[]
+  weightLogs  WeightLog[]
+}
+
+model FoodEntry {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  date      DateTime
+
+  name      String
+  calories  Int
+  protein   Int
+  carbs     Int
+  fat       Int
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Workout {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  date      DateTime
+  name      String
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  exercises ExerciseSet[]
+}
+
+model ExerciseSet {
+  id        String @id @default(cuid())
+
+  workoutId String
+  workout   Workout @relation(fields: [workoutId], references: [id])
+
+  exercise  String
+  setNumber Int
+  reps      Int
+  weight    Float
+}
+
+model WeightLog {
+  id        String   @id @default(cuid())
+  date      DateTime
+  weight    Float
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
