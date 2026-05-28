@@ -6,6 +6,7 @@ import { FoodEntryForm } from "@/components/dashboard/FoodEntryForm";
 import { WorkoutForm } from "@/components/dashboard/WorkoutForm";
 import { WorkoutList } from "@/components/dashboard/WorkoutList";
 import { getTodayWorkouts } from "@/lib/queries/getTodayWorkouts";
+import { CardSection } from "@/components/ui/CardSection";
 
 const targets = {
   calories: 2200,
@@ -26,7 +27,7 @@ const DashboardPage = async () => {
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-8">
       <h1 className="text-2xl font-bold">Today</h1>
-      <FoodEntryForm />
+
       <div className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2">
           <MacroCard
@@ -51,13 +52,15 @@ const DashboardPage = async () => {
           <MacroCard label="Fat" current={macros.fat} target={targets.fat} />
         </div>
       </div>
-      {entries.length > 0 ? (
+      <CardSection title="Food">
+        <FoodEntryForm />
         <EntryList entries={entries} />
-      ) : (
-        <p className="text-gray-500">No food logged today.</p>
-      )}
-      <WorkoutForm />
-      <WorkoutList workouts={workouts} />
+      </CardSection>
+
+      <CardSection title="Workouts">
+        <WorkoutForm />
+        <WorkoutList workouts={workouts} />
+      </CardSection>
     </div>
   );
 };

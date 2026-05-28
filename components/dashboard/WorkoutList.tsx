@@ -1,3 +1,6 @@
+import { ListItemRow } from "@/components/ui/ListItemRow";
+import { deleteWorkout } from "@/app/actions/deleteWorkout";
+
 type Workout = {
   id: string;
   name: string;
@@ -19,24 +22,30 @@ export function WorkoutList({ workouts }: WorkoutListProps) {
         )}
 
         {workouts.map((workout) => (
-          <div
+          <ListItemRow
             key={workout.id}
-            className="rounded-lg border p-3 flex items-center justify-between"
-          >
-            <div>
-              <h3 className="font-medium">{workout.name}</h3>
-              <p className="text-sm text-gray-500">
-                {new Date(workout.date).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
-            </div>
-
-            <button className="text-sm text-red-500 hover:text-red-700">
-              Delete
-            </button>
-          </div>
+            left={
+              <>
+                <h3 className="font-medium">{workout.name}</h3>
+                <p className="text-sm text-gray-500">
+                  {new Date(workout.date).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </>
+            }
+            right={
+              <form action={deleteWorkout.bind(null, workout.id)}>
+                <button
+                  type="submit"
+                  className="text-sm text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </form>
+            }
+          />
         ))}
       </div>
     </div>
