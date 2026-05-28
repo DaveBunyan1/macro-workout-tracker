@@ -1,5 +1,13 @@
 import { FoodEntryForm } from "@/components/dashboard/foodEntryForm";
+import { MacroCard } from "@/components/dashboard/MacroCard";
 import { getTodayMacros } from "@/lib/queries/getTodayMacros";
+
+const targets = {
+  calories: 2200,
+  protein: 180,
+  carbs: 250,
+  fat: 70,
+};
 
 const DashboardPage = async () => {
   const userId = "demo-user"; // temporary until auth
@@ -7,15 +15,32 @@ const DashboardPage = async () => {
   const macros = await getTodayMacros(userId);
 
   return (
-    <div className="p-6">
+    <div className="mx-auto max-w-5xl p-6 space-y-8">
       <h1 className="text-2xl font-bold">Today</h1>
+      <FoodEntryForm />
+      <div className="space-y-6">
+        <div className="grid gap-4 md:grid-cols-2">
+          <MacroCard
+            label="Calories"
+            current={macros.calories}
+            target={targets.calories}
+            unit="kcal"
+          />
 
-      <div className="mt-4 space-y-2">
-        <p>Calories: {macros.calories}</p>
-        <p>Protein: {macros.protein}g</p>
-        <p>Carbs: {macros.carbs}g</p>
-        <p>Fat: {macros.fat}g</p>
-        <FoodEntryForm />
+          <MacroCard
+            label="Protein"
+            current={macros.protein}
+            target={targets.protein}
+          />
+
+          <MacroCard
+            label="Carbs"
+            current={macros.carbs}
+            target={targets.carbs}
+          />
+
+          <MacroCard label="Fat" current={macros.fat} target={targets.fat} />
+        </div>
       </div>
     </div>
   );
