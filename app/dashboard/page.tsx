@@ -1,3 +1,4 @@
+import { FoodEntryForm } from "@/components/dashboard/foodEntryForm";
 import { getTodayMacros } from "@/lib/queries/getTodayMacros";
 
 const DashboardPage = async () => {
@@ -14,6 +15,7 @@ const DashboardPage = async () => {
         <p>Protein: {macros.protein}g</p>
         <p>Carbs: {macros.carbs}g</p>
         <p>Fat: {macros.fat}g</p>
+        <FoodEntryForm />
       </div>
     </div>
   );
