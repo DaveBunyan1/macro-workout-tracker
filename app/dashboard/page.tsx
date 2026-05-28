@@ -1,6 +1,8 @@
 import { FoodEntryForm } from "@/components/dashboard/foodEntryForm";
 import { MacroCard } from "@/components/dashboard/MacroCard";
 import { getTodayMacros } from "@/lib/queries/getTodayMacros";
+import { getTodayEntries } from "@/lib/queries/getTodayEntries";
+import { EntryList } from "@/components/dashboard/EntryList";
 
 const targets = {
   calories: 2200,
@@ -13,6 +15,8 @@ const DashboardPage = async () => {
   const userId = "demo-user"; // temporary until auth
 
   const macros = await getTodayMacros(userId);
+
+  const entries = await getTodayEntries(userId);
 
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-8">
@@ -42,6 +46,11 @@ const DashboardPage = async () => {
           <MacroCard label="Fat" current={macros.fat} target={targets.fat} />
         </div>
       </div>
+      {entries.length > 0 ? (
+        <EntryList entries={entries} />
+      ) : (
+        <p className="text-gray-500">No food logged today.</p>
+      )}
     </div>
   );
 };
