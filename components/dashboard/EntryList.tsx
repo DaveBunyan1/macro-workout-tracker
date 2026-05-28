@@ -1,3 +1,5 @@
+import { deleteFoodEntry } from "@/app/actions/deleteFoodEntry";
+
 type Entry = {
   id: string;
   name: string;
@@ -19,12 +21,24 @@ export function EntryList({ entries }: EntryListProps) {
       <div className="space-y-3">
         {entries.map((entry) => (
           <div key={entry.id} className="rounded-lg border p-3">
-            <h3 className="font-medium">{entry.name}</h3>
+            <div className="flex items-start justify-between gap-4 rounded-lg border p-3">
+              <div>
+                <h3 className="font-medium">{entry.name}</h3>
 
-            <p className="text-sm text-gray-600">
-              {entry.calories} kcal • {entry.protein}p • {entry.carbs}c •{" "}
-              {entry.fat}f
-            </p>
+                <p className="text-sm text-gray-600">
+                  {entry.calories} kcal • {entry.protein}p • {entry.carbs}c •{" "}
+                  {entry.fat}f
+                </p>
+              </div>
+              <form action={deleteFoodEntry.bind(null, entry.id)}>
+                <button
+                  type="submit"
+                  className="text-sm text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
           </div>
         ))}
       </div>
