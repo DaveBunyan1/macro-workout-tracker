@@ -1,8 +1,11 @@
-import { FoodEntryForm } from "@/components/dashboard/foodEntryForm";
 import { MacroCard } from "@/components/dashboard/MacroCard";
 import { getTodayMacros } from "@/lib/queries/getTodayMacros";
 import { getTodayEntries } from "@/lib/queries/getTodayEntries";
 import { EntryList } from "@/components/dashboard/EntryList";
+import { FoodEntryForm } from "@/components/dashboard/FoodEntryForm";
+import { WorkoutForm } from "@/components/dashboard/WorkoutForm";
+import { WorkoutList } from "@/components/dashboard/WorkoutList";
+import { getTodayWorkouts } from "@/lib/queries/getTodayWorkouts";
 
 const targets = {
   calories: 2200,
@@ -17,6 +20,8 @@ const DashboardPage = async () => {
   const macros = await getTodayMacros(userId);
 
   const entries = await getTodayEntries(userId);
+
+  const workouts = await getTodayWorkouts(userId);
 
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-8">
@@ -51,6 +56,8 @@ const DashboardPage = async () => {
       ) : (
         <p className="text-gray-500">No food logged today.</p>
       )}
+      <WorkoutForm />
+      <WorkoutList workouts={workouts} />
     </div>
   );
 };

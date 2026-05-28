@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { endOfDay, startOfDay } from "../date";
+import { startOfDay, endOfDay } from "../date";
 
-export const getTodayEntries = async (userId: string) => {
+export async function getTodayWorkouts(userId: string) {
   const now = new Date();
 
-  return prisma.foodEntry.findMany({
+  return prisma.workout.findMany({
     where: {
       userId,
       date: {
@@ -16,4 +16,4 @@ export const getTodayEntries = async (userId: string) => {
       date: "desc",
     },
   });
-};
+}
