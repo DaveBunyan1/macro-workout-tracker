@@ -26,7 +26,7 @@ export function MacroCard({
 
       <div className="mt-3 h-2 rounded bg-gray-200">
         <div
-          className="h-2 rounded bg-blue-600"
+          className="h-2 rounded bg-linear-to-r from-blue-800 to-indigo-900"
           style={{ width: `${percentage}%` }}
         />
       </div>
