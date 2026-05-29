@@ -48,6 +48,28 @@ model FoodEntry {
   user   User   @relation(fields: [userId], references: [id])
 }
 
+model WorkoutTemplate {
+  id   String @id @default(cuid())
+  name String // "A" or "B"
+
+  exercises WorkoutTemplateExercise[]
+  workouts  Workout[]
+}
+
+model WorkoutTemplateExercise {
+  id String @id @default(cuid())
+
+  templateId String
+  template   WorkoutTemplate @relation(fields: [templateId], references: [id])
+
+  name  String
+  order Int
+
+  defaultSets     Int
+  defaultReps     String
+  exerciseEntries ExerciseEntry[]
+}
+
 model Workout {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -57,19 +79,25 @@ model Workout {
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
-  exercises ExerciseSet[]
+  templateId String?
+  template   WorkoutTemplate? @relation(fields: [templateId], references: [id])
+
+  exercises ExerciseEntry[]
 }
 
-model ExerciseSet {
+model ExerciseEntry {
   id String @id @default(cuid())
 
   workoutId String
   workout   Workout @relation(fields: [workoutId], references: [id], onDelete: Cascade)
 
+  templateExerciseId String?
+  templateExercise   WorkoutTemplateExercise? @relation(fields: [templateExerciseId], references: [id])
+
   exercise  String
   setNumber Int
   reps      Int
-  weight    Float
+  weight    Float?
 }
 
 model WeightLog {

@@ -43,6 +43,7 @@ async function main() {
         carbsPer100g: 5.2,
         fatPer100g: 3.2,
       },
+      // Per Egg nutriton done as 100g
       {
         name: "Egg",
         caloriesPer100g: 80,
@@ -84,65 +85,6 @@ async function main() {
   // -----------------------
   // 4. EXERCISE SETS
   // -----------------------
-
-  await prisma.exerciseSet.createMany({
-    data: [
-      // PUSH DAY
-      {
-        workoutId: workout1.id,
-        exercise: "Bench Press",
-        setNumber: 1,
-        reps: 8,
-        weight: 80,
-      },
-      {
-        workoutId: workout1.id,
-        exercise: "Bench Press",
-        setNumber: 2,
-        reps: 6,
-        weight: 85,
-      },
-      {
-        workoutId: workout1.id,
-        exercise: "Incline DB Press",
-        setNumber: 1,
-        reps: 10,
-        weight: 25,
-      },
-
-      // PULL DAY
-      {
-        workoutId: workout2.id,
-        exercise: "Pull-ups",
-        setNumber: 1,
-        reps: 8,
-        weight: 0,
-      },
-      {
-        workoutId: workout2.id,
-        exercise: "Barbell Row",
-        setNumber: 1,
-        reps: 8,
-        weight: 70,
-      },
-
-      // LEG DAY
-      {
-        workoutId: workout3.id,
-        exercise: "Squat",
-        setNumber: 1,
-        reps: 8,
-        weight: 100,
-      },
-      {
-        workoutId: workout3.id,
-        exercise: "Romanian Deadlift",
-        setNumber: 1,
-        reps: 10,
-        weight: 90,
-      },
-    ],
-  });
 
   // -----------------------
   // 5. WEIGHT LOGS
