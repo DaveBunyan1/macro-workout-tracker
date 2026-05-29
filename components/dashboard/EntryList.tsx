@@ -3,11 +3,14 @@ import { ListItemRow } from "../ui/ListItemRow";
 
 type Entry = {
   id: string;
-  name: string;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
+  grams: number;
+  food: {
+    name: string;
+    caloriesPer100g: number;
+    proteinPer100g: number;
+    carbsPer100g: number;
+    fatPer100g: number;
+  };
 };
 
 type EntryListProps = {
@@ -29,11 +32,20 @@ export function EntryList({ entries }: EntryListProps) {
             key={entry.id}
             left={
               <>
-                <h3 className="font-medium">{entry.name}</h3>
+                <h3 className="font-medium">{entry.food.name}</h3>
+
                 <p className="text-sm text-gray-600">
-                  {entry.calories} kcal • {entry.protein}p • {entry.carbs}c •{" "}
-                  {entry.fat}f
+                  {((entry.food.caloriesPer100g * entry.grams) / 100).toFixed(
+                    0,
+                  )}{" "}
+                  kcal •{" "}
+                  {((entry.food.proteinPer100g * entry.grams) / 100).toFixed(1)}
+                  p •{" "}
+                  {((entry.food.carbsPer100g * entry.grams) / 100).toFixed(1)}c
+                  • {((entry.food.fatPer100g * entry.grams) / 100).toFixed(1)}f
                 </p>
+
+                <p className="text-xs text-gray-400">{entry.grams}g</p>
               </>
             }
             right={

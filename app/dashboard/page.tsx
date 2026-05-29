@@ -1,5 +1,4 @@
 import { MacroCard } from "@/components/dashboard/MacroCard";
-import { getTodayMacros } from "@/lib/queries/getTodayMacros";
 import { getTodayEntries } from "@/lib/queries/getTodayEntries";
 import { EntryList } from "@/components/dashboard/EntryList";
 import { FoodEntryForm } from "@/components/dashboard/FoodEntryForm";
@@ -7,22 +6,22 @@ import { WorkoutForm } from "@/components/dashboard/WorkoutForm";
 import { WorkoutList } from "@/components/dashboard/WorkoutList";
 import { getTodayWorkouts } from "@/lib/queries/getTodayWorkouts";
 import { CardSection } from "@/components/ui/CardSection";
+import { DEMO_USER_ID } from "@/lib/constants";
+import { prisma } from "@/lib/prisma";
 
 const targets = {
-  calories: 2200,
+  calories: 3000,
   protein: 180,
-  carbs: 250,
-  fat: 70,
+  carbs: 390,
+  fat: 80,
 };
 
 const DashboardPage = async () => {
-  const userId = "demo-user"; // temporary until auth
+  const { entries, totals } = await getTodayEntries(DEMO_USER_ID);
 
-  const macros = await getTodayMacros(userId);
+  const workouts = await getTodayWorkouts(DEMO_USER_ID);
 
-  const entries = await getTodayEntries(userId);
-
-  const workouts = await getTodayWorkouts(userId);
+  const foods = await prisma.food.findMany();
 
   return (
     <div className="mx-auto max-w-5xl p-6 space-y-8">
@@ -32,28 +31,28 @@ const DashboardPage = async () => {
         <div className="grid gap-4 md:grid-cols-2">
           <MacroCard
             label="Calories"
-            current={macros.calories}
+            current={totals.calories}
             target={targets.calories}
             unit="kcal"
           />
 
           <MacroCard
             label="Protein"
-            current={macros.protein}
+            current={totals.protein}
             target={targets.protein}
           />
 
           <MacroCard
             label="Carbs"
-            current={macros.carbs}
+            current={totals.carbs}
             target={targets.carbs}
           />
 
-          <MacroCard label="Fat" current={macros.fat} target={targets.fat} />
+          <MacroCard label="Fat" current={totals.fat} target={targets.fat} />
         </div>
       </div>
       <CardSection title="Food">
-        <FoodEntryForm />
+        <FoodEntryForm foods={foods} />
         <EntryList entries={entries} />
       </CardSection>
 

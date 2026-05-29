@@ -2,42 +2,36 @@
 
 import { addFoodEntry } from "@/app/actions/addFoodEntry";
 
-export function FoodEntryForm() {
+type Food = {
+  id: string;
+  name: string;
+};
+
+export function FoodEntryForm({ foods }: { foods: Food[] }) {
   return (
     <form action={addFoodEntry} className="space-y-4 rounded-lg border p-4">
       <h2 className="text-lg font-semibold">Add Food Entry</h2>
 
-      <input
-        name="name"
-        placeholder="Food name"
+      <select
+        name="foodId"
         className="w-full rounded border p-2"
-      />
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Select food
+        </option>
+
+        {foods.map((food) => (
+          <option key={food.id} value={food.id} className="text-black">
+            {food.name}
+          </option>
+        ))}
+      </select>
 
       <input
-        name="calories"
+        name="grams"
         type="number"
-        placeholder="Calories"
-        className="w-full rounded border p-2"
-      />
-
-      <input
-        name="protein"
-        type="number"
-        placeholder="Protein (g)"
-        className="w-full rounded border p-2"
-      />
-
-      <input
-        name="carbs"
-        type="number"
-        placeholder="Carbs (g)"
-        className="w-full rounded border p-2"
-      />
-
-      <input
-        name="fat"
-        type="number"
-        placeholder="Fat (g)"
+        placeholder="Grams"
         className="w-full rounded border p-2"
       />
 

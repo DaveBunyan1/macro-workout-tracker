@@ -26,12 +26,12 @@ export function MacroCard({
 
       <div className="mt-3 h-2 rounded bg-gray-200">
         <div
-          className="h-2 rounded bg-black"
+          className="h-2 rounded bg-blue-600"
           style={{ width: `${percentage}%` }}
         />
       </div>
 
-      <p className="mt-2 text-sm text-gray-600">
+      <p className="mt-2 text-sm text-gray-300">
         {remaining}
         {unit} remaining
       </p>

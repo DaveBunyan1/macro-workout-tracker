@@ -27,66 +27,28 @@ async function main() {
   // -----------------------
   // 2. FOOD ENTRIES
   // -----------------------
-  await prisma.foodEntry.createMany({
+  await prisma.food.createMany({
     data: [
-      // DAY 1
       {
-        userId: user.id,
-        date: day1,
-        name: "Oats with banana",
-        calories: 350,
-        protein: 10,
-        carbs: 60,
-        fat: 8,
+        name: "Oats",
+        caloriesPer100g: 350,
+        proteinPer100g: 12.5,
+        carbsPer100g: 67.5,
+        fatPer100g: 6.25,
       },
       {
-        userId: user.id,
-        date: day1,
-        name: "Chicken rice bowl",
-        calories: 650,
-        protein: 55,
-        carbs: 70,
-        fat: 18,
-      },
-
-      // DAY 2
-      {
-        userId: user.id,
-        date: day2,
-        name: "Eggs and toast",
-        calories: 420,
-        protein: 22,
-        carbs: 30,
-        fat: 22,
+        name: "Milk",
+        caloriesPer100g: 64,
+        proteinPer100g: 3.6,
+        carbsPer100g: 5.2,
+        fatPer100g: 3.2,
       },
       {
-        userId: user.id,
-        date: day2,
-        name: "Salmon and potatoes",
-        calories: 700,
-        protein: 45,
-        carbs: 50,
-        fat: 30,
-      },
-
-      // DAY 3 (today)
-      {
-        userId: user.id,
-        date: day3,
-        name: "Greek yogurt + honey",
-        calories: 250,
-        protein: 20,
-        carbs: 25,
-        fat: 5,
-      },
-      {
-        userId: user.id,
-        date: day3,
-        name: "Chicken wrap",
-        calories: 500,
-        protein: 40,
-        carbs: 45,
-        fat: 15,
+        name: "Egg",
+        caloriesPer100g: 80,
+        proteinPer100g: 6.5,
+        carbsPer100g: 0.5,
+        fatPer100g: 5.5,
       },
     ],
   });
