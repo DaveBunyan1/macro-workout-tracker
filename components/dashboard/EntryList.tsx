@@ -1,5 +1,6 @@
 import { deleteFoodEntry } from "@/app/actions/deleteFoodEntry";
 import { ListItemRow } from "../ui/ListItemRow";
+import { Button } from "../ui/Button";
 
 type Entry = {
   id: string;
@@ -50,12 +51,9 @@ export function EntryList({ entries }: EntryListProps) {
             }
             right={
               <form action={deleteFoodEntry.bind(null, entry.id)}>
-                <button
-                  type="submit"
-                  className="text-sm text-red-500 hover:text-red-700"
-                >
+                <Button type="submit" variant="danger" size="sm">
                   Delete
-                </button>
+                </Button>
               </form>
             }
           />

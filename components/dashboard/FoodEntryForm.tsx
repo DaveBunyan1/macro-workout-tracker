@@ -1,6 +1,7 @@
 "use client";
 
 import { addFoodEntry } from "@/app/actions/addFoodEntry";
+import { Button } from "../ui/Button";
 
 type Food = {
   id: string;
@@ -35,9 +36,7 @@ export function FoodEntryForm({ foods }: { foods: Food[] }) {
         className="w-full rounded border p-2"
       />
 
-      <button type="submit" className="rounded bg-black px-4 py-2 text-white">
-        Add Entry
-      </button>
+      <Button type="submit">Add Entry</Button>
     </form>
   );
 }

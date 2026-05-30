@@ -1,6 +1,7 @@
 "use client";
 
 import { addWorkout } from "@/app/actions/addWorkout";
+import { Button } from "../ui/Button";
 
 export function WorkoutForm() {
   return (
@@ -12,10 +13,7 @@ export function WorkoutForm() {
         placeholder="Workout name (e.g. Push Day)"
         className="w-full rounded border p-2"
       />
-
-      <button type="submit" className="rounded bg-black px-4 py-2 text-white">
-        Add Workout
-      </button>
+      <Button type="submit">Add Workout</Button>
     </form>
   );
 }

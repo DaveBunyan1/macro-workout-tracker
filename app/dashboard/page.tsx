@@ -1,13 +1,10 @@
 import { MacroCard } from "@/components/dashboard/MacroCard";
 import { getTodayEntries } from "@/lib/queries/getTodayEntries";
-import { EntryList } from "@/components/dashboard/EntryList";
-import { FoodEntryForm } from "@/components/dashboard/FoodEntryForm";
-import { WorkoutForm } from "@/components/dashboard/WorkoutForm";
-import { WorkoutList } from "@/components/dashboard/WorkoutList";
 import { getTodayWorkouts } from "@/lib/queries/getTodayWorkouts";
 import { CardSection } from "@/components/ui/CardSection";
 import { DEMO_USER_ID } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 const targets = {
   calories: 3000,
@@ -24,8 +21,11 @@ const DashboardPage = async () => {
   const foods = await prisma.food.findMany();
 
   return (
-    <div className="mx-auto max-w-5xl p-6 space-y-8">
-      <h1 className="text-2xl font-bold">Today</h1>
+    <div className="mx-auto w-full max-w-6xl px-6 py-6 space-y-8">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-bold leading-tight">Today</h1>
+        <p className="text-sm text-zinc-500 leading-none">Saturday, May 30</p>
+      </div>
 
       <div className="space-y-6">
         <div className="grid gap-4 md:grid-cols-2">
@@ -51,14 +51,28 @@ const DashboardPage = async () => {
           <MacroCard label="Fat" current={totals.fat} target={targets.fat} />
         </div>
       </div>
-      <CardSection title="Food">
-        <FoodEntryForm foods={foods} />
-        <EntryList entries={entries} />
+      <CardSection title="Food Today">
+        <div className="text-sm text-zinc-600 dark:text-zinc-400">
+          5 entries logged
+        </div>
+
+        <div className="mt-1 text-lg font-medium">1,840 / 3,000 kcal</div>
+
+        <Link className="mt-3 text-blue-600 text-sm" href="/food">
+          View food log →
+        </Link>
       </CardSection>
 
-      <CardSection title="Workouts">
-        <WorkoutForm />
-        <WorkoutList workouts={workouts} />
+      <CardSection title="Workouts Today">
+        <div className="text-sm text-zinc-600 dark:text-zinc-400">
+          Workout A completed
+        </div>
+
+        <div className="mt-1 text-lg font-medium">18 sets logged</div>
+
+        <Link className="mt-3 text-blue-600 text-sm" href="/workouts">
+          View workouts →
+        </Link>
       </CardSection>
     </div>
   );
